@@ -1,9 +1,15 @@
 using Dalamud.Game.Command;
+using Dalamud.Game.Text.SeStringHandling;
+using Dalamud.Game.Text.SeStringHandling.Payloads;
+using Dalamud.Interface.Windowing;
 using Dalamud.IoC;
 using Dalamud.Plugin;
-using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
-using SamplePlugin.Windows;
+using FFXIVClientStructs.FFXIV.Client.UI;
+using PartyFinderPlugin.Windows;
+using System;
+using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace PartyFinderPlugin;
 
@@ -14,38 +20,90 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
     [PluginService] internal static IClientState ClientState { get; private set; } = null!;
     [PluginService] internal static IDataManager DataManager { get; private set; } = null!;
+    [PluginService] internal static IPartyFinderGui PartyFinder { get; private set; } = null!;
+    [PluginService] internal static IChatGui Chat { get; private set; } = null!;
     [PluginService] internal static IPluginLog Log { get; private set; } = null!;
 
     private const string CommandName = "/pf";
+    private readonly Configuration _configuration = null!;
 
-    public readonly WindowSystem WindowSystem = new("PartyFinderPlugin");
+    private readonly WindowSystem _windowSystem = new("PartyFinderPlugin");
     private MainWindow MainWindow { get; init; }
+
+    private readonly Lock _timerLock = new Lock();
+    private Timer? _timer;
 
     public Plugin()
     {
-        MainWindow = new MainWindow(this);
+        _configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
+        _configuration.LoadEncounterIds();
 
-        WindowSystem.AddWindow(MainWindow);
+        MainWindow = new MainWindow(this._configuration);
 
+        _windowSystem.AddWindow(MainWindow);
         CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
         {
             HelpMessage = "Open Party Finder Plugin"
         });
+        
+        PartyFinder.ReceiveListing += (listing, listingEventArgs) =>
+        {
+            if (!_configuration.On)
+                return;
+
+            var description = listing.Description.TextValue;
+
+            if (!string.IsNullOrEmpty(description) && Regex.IsMatch(description, _configuration.SearchExpression, RegexOptions.IgnoreCase))
+            {
+                var dutyId = listing.Duty.Value.RowId.ToString();
+
+                if (_configuration.EncounterIds.Contains(dutyId))
+                {
+                    var name = listing.Duty.Value.Name.ToString();
+
+                    var builder = new SeStringBuilder();
+
+                    builder
+                        .Add(new PartyFinderPayload(listing.Id, PartyFinderPayload.PartyFinderLinkType.NotSpecified));
+
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        builder.AddText(name + " - ");
+                    }
+
+                    builder
+                        .AddText(description)
+                        .Add(RawPayload.LinkTerminator);
+
+                    Chat.Print(builder.Build());
+
+                    lock (_timerLock)
+                    {
+                        _timer?.Dispose();
+                        _timer = new Timer(ProcessNotification, null, TimeSpan.FromSeconds(1), Timeout.InfiniteTimeSpan);
+                    }
+                }
+            }
+        };
 
         PluginInterface.UiBuilder.Draw += DrawUI;
-
-        // Adds another button that is doing the same but for the main ui of the plugin
         PluginInterface.UiBuilder.OpenMainUi += ToggleMainUI;
+    }
+    
+    private void ProcessNotification(object? state)
+    {
+        lock (_timerLock)
+        {
+            UIGlobals.PlayChatSoundEffect(1);
 
-        // Add a simple message to the log with level set to information
-        // Use /xllog to open the log window in-game
-        // Example Output: 00:57:54.959 | INF | [SamplePlugin] ===A cool log message from Sample Plugin===
-        Log.Information($"===A cool log message from {PluginInterface.Manifest.Name}===");
+            _timer?.Dispose();
+            _timer = null;
+        }
     }
 
     public void Dispose()
     {
-        WindowSystem.RemoveAllWindows();
+        _windowSystem.RemoveAllWindows();
 
         MainWindow.Dispose();
 
@@ -54,10 +112,26 @@ public sealed class Plugin : IDalamudPlugin
 
     private void OnCommand(string command, string args)
     {
+        if(args == "on")
+        {
+            _configuration.On = true;
+            _configuration.Save();
+            Chat.Print("PF Plugin On");
+            return;
+        }
+        
+        if(args == "off")
+        {
+            _configuration.On = false;
+            _configuration.Save();
+            Chat.Print("PF Plugin Off");
+            return;
+        }
+
         // in response to the slash command, just toggle the display status of our main ui
         ToggleMainUI();
     }
 
-    private void DrawUI() => WindowSystem.Draw();
+    private void DrawUI() => _windowSystem.Draw();
     public void ToggleMainUI() => MainWindow.Toggle();
 }
