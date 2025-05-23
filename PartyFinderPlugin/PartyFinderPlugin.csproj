@@ -8,11 +8,4 @@
     <IsPackable>false</IsPackable>
     <TargetFramework>net9.0-windows7.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="..\Data\goat.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>false</Visible>
-    </Content>
-  </ItemGroup>
 </Project>
