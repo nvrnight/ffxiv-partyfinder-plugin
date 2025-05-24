@@ -53,34 +53,40 @@ public sealed class Plugin : IDalamudPlugin
 
             var description = listing.Description.TextValue;
 
-            if (!string.IsNullOrEmpty(description) && Regex.IsMatch(description, _configuration.SearchExpression, RegexOptions.IgnoreCase))
+            if(!string.IsNullOrEmpty(description))
             {
-                var dutyId = listing.Duty.Value.RowId.ToString();
+                if (!string.IsNullOrEmpty(_configuration.ExcludeExpression) && Regex.IsMatch(description, _configuration.ExcludeExpression, RegexOptions.IgnoreCase))
+                    return;
 
-                if (_configuration.EncounterIds.Contains(dutyId))
+                if(Regex.IsMatch(description, _configuration.SearchExpression, RegexOptions.IgnoreCase))
                 {
-                    var name = listing.Duty.Value.Name.ToString();
+                    var dutyId = listing.Duty.Value.RowId.ToString();
 
-                    var builder = new SeStringBuilder();
-
-                    builder
-                        .Add(new PartyFinderPayload(listing.Id, PartyFinderPayload.PartyFinderLinkType.NotSpecified));
-
-                    if (!string.IsNullOrEmpty(name))
+                    if (_configuration.EncounterIds.Contains(dutyId))
                     {
-                        builder.AddText(name + " - ");
-                    }
+                        var name = listing.Duty.Value.Name.ToString();
 
-                    builder
-                        .AddText(description)
-                        .Add(RawPayload.LinkTerminator);
+                        var builder = new SeStringBuilder();
 
-                    Chat.Print(builder.Build());
+                        builder
+                            .Add(new PartyFinderPayload(listing.Id, PartyFinderPayload.PartyFinderLinkType.NotSpecified));
 
-                    lock (_timerLock)
-                    {
-                        _timer?.Dispose();
-                        _timer = new Timer(ProcessNotification, null, TimeSpan.FromSeconds(1), Timeout.InfiniteTimeSpan);
+                        if (!string.IsNullOrEmpty(name))
+                        {
+                            builder.AddText(name + " - ");
+                        }
+
+                        builder
+                            .AddText(description)
+                            .Add(RawPayload.LinkTerminator);
+
+                        Chat.Print(builder.Build());
+
+                        lock (_timerLock)
+                        {
+                            _timer?.Dispose();
+                            _timer = new Timer(ProcessNotification, null, TimeSpan.FromSeconds(1), Timeout.InfiniteTimeSpan);
+                        }
                     }
                 }
             }

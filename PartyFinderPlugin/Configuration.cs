@@ -18,6 +18,7 @@ public class Configuration : IPluginConfiguration
     public HashSet<string> EncounterIds { get; set; } = [];
 
     public string SearchExpression { get; set; } = "";
+    public string ExcludeExpression { get; set; } = "";
     public bool M5S { get; set; } = true;
     public bool M6S { get; set; } = true;
     public bool M7S { get; set; } = true;
