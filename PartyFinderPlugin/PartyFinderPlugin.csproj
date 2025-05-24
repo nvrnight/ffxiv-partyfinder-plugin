@@ -3,9 +3,9 @@
   <PropertyGroup>
     <Version>0.0.0.1</Version>
     <Description>A Party Finder plugin</Description>
-    <PackageProjectUrl>https://github.com/goatcorp/SamplePlugin</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <IsPackable>false</IsPackable>
+    <PackageProjectUrl>https://github.com/nvrnight/ffxiv-partyfinder-plugin</PackageProjectUrl>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <IsPackable>true</IsPackable>
     <TargetFramework>net9.0-windows7.0</TargetFramework>
   </PropertyGroup>
 </Project>

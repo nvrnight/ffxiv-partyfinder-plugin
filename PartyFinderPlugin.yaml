@@ -1,0 +1,6 @@
+name: Party Finder Plugin
+author: Tanker Tanker(aka Nvrnight)
+punchline: Helps search PF descriptions
+description: |- # long description, shown when your plugin is clicked on
+  This plugin allows you to search for parties based on their descriptions. When you refresh the party finder, if any parties meet your search criteria, a notification sound will play and a link to each party will be displayed in the chat window.
+repo_url: https://github.com/nvrnight/ffxiv-partyfinder-plugin # where can users find your plugin's source code?
