@@ -1,6 +1,6 @@
 {
   "Author": "Tanker Tanker(aka Nvrnight)",
-  "Name": "Party Finder Description Search Plugin",
+  "Name": "Party Finder Search Plugin",
   "Punchline": "Find party finder groups easier.",
   "Description": "\n/pf\n/pf on\n/pf off\n\nThis plugin allows you to search for parties based on their descriptions. When you refresh the party finder, if any parties meet your search criteria, a notification sound will play and a link to each party will be displayed in the chat window.\n\nThis plugin will NOT automatically scan PF for you, it only runs additional search logic when you hit the refresh button.",
   "ApplicableVersion": "any",
