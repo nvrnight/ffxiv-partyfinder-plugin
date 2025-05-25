@@ -6,12 +6,12 @@ using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Client.UI;
-using PartyFinderPlugin.Windows;
+using PFSearch.Windows;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace PartyFinderPlugin;
+namespace PFSearch;
 
 public sealed class Plugin : IDalamudPlugin
 {
@@ -38,7 +38,7 @@ public sealed class Plugin : IDalamudPlugin
         _configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         _configuration.LoadEncounterIds();
 
-        MainWindow = new MainWindow(this._configuration);
+        MainWindow = new MainWindow(_configuration);
 
         _windowSystem.AddWindow(MainWindow);
         CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)

@@ -5,7 +5,7 @@ using ImGuiNET;
 using System;
 using System.Numerics;
 
-namespace PartyFinderPlugin.Windows;
+namespace PFSearch.Windows;
 
 public class MainWindow : Window, IDisposable
 {
