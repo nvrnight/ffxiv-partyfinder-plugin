@@ -58,7 +58,7 @@ public sealed class Plugin : IDalamudPlugin
                 if (!string.IsNullOrEmpty(_configuration.ExcludeExpression) && Regex.IsMatch(description, _configuration.ExcludeExpression, RegexOptions.IgnoreCase))
                     return;
 
-                if(Regex.IsMatch(description, _configuration.SearchExpression, RegexOptions.IgnoreCase))
+                if(!string.IsNullOrEmpty(_configuration.SearchExpression) && Regex.IsMatch(description, _configuration.SearchExpression, RegexOptions.IgnoreCase))
                 {
                     var dutyId = listing.Duty.Value.RowId.ToString();
 
