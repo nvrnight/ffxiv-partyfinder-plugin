@@ -23,8 +23,8 @@ public class Configuration : IPluginConfiguration
     public bool M6S { get; set; } = true;
     public bool M7S { get; set; } = true;
     public bool M8S { get; set; } = true;
-    public bool HellsKierUnreal { get; set; } = true;
-    public bool RecollectionExtreme { get; set; } = true;
+    public bool TsukuyomiUnreal { get; set; } = true;
+    public bool HellOnRailsExtreme { get; set; } = true;
     public bool Ucob { get; set; } = true;
     public bool Uwu { get; set; } = true;
     public bool Tea { get; set; } = true;
@@ -44,13 +44,13 @@ public class Configuration : IPluginConfiguration
     {
         lock(_encounterLock)
         {
-            EncounterIds.Clear();
+            EncounterIds.Clear();/*
             if (M5S) EncounterIds.Add("1020");
             if (M6S) EncounterIds.Add("1022");
             if (M7S) EncounterIds.Add("1024");
-            if (M8S) EncounterIds.Add("1026");
-            if (HellsKierUnreal) EncounterIds.Add("1029");
-            if (RecollectionExtreme) EncounterIds.Add("1031");
+            if (M8S) EncounterIds.Add("1026");*/
+            if (TsukuyomiUnreal) EncounterIds.Add("1067");
+            if (HellOnRailsExtreme) EncounterIds.Add("1077");
             if (Ucob) EncounterIds.Add("280");
             if (Uwu) EncounterIds.Add("539");
             if (Tea) EncounterIds.Add("694");

@@ -11,6 +11,8 @@ using System;
 using System.Text.RegularExpressions;
 using System.Threading;
 
+#pragma warning disable CA1416
+
 namespace PFSearch;
 
 public sealed class Plugin : IDalamudPlugin
@@ -48,9 +50,12 @@ public sealed class Plugin : IDalamudPlugin
         
         PartyFinder.ReceiveListing += (listing, listingEventArgs) =>
         {
+            //Occasionally using this for finding duty ids.
+            //Chat.Print(listing.Duty.Value.RowId.ToString() + "-" + listing.Description.TextValue);
+            
             if (!_configuration.On)
                 return;
-
+                    
             var description = listing.Description.TextValue;
 
             if(!string.IsNullOrEmpty(description))
