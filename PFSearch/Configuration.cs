@@ -19,10 +19,10 @@ public class Configuration : IPluginConfiguration
 
     public string SearchExpression { get; set; } = "";
     public string ExcludeExpression { get; set; } = "";
-    public bool M5S { get; set; } = true;
-    public bool M6S { get; set; } = true;
-    public bool M7S { get; set; } = true;
-    public bool M8S { get; set; } = true;
+    public bool M9S { get; set; } = true;
+    public bool M10S { get; set; } = true;
+    public bool M11S { get; set; } = true;
+    public bool M12S { get; set; } = true;
     public bool TsukuyomiUnreal { get; set; } = true;
     public bool HellOnRailsExtreme { get; set; } = true;
     public bool Ucob { get; set; } = true;
@@ -44,11 +44,11 @@ public class Configuration : IPluginConfiguration
     {
         lock(_encounterLock)
         {
-            EncounterIds.Clear();/*
-            if (M5S) EncounterIds.Add("1020");
-            if (M6S) EncounterIds.Add("1022");
-            if (M7S) EncounterIds.Add("1024");
-            if (M8S) EncounterIds.Add("1026");*/
+            EncounterIds.Clear();
+            if (M9S) EncounterIds.Add("1069");
+            if (M10S) EncounterIds.Add("1071");
+            if (M11S) EncounterIds.Add("1073");
+            if (M12S) EncounterIds.Add("1075");
             if (TsukuyomiUnreal) EncounterIds.Add("1067");
             if (HellOnRailsExtreme) EncounterIds.Add("1077");
             if (Ucob) EncounterIds.Add("280");

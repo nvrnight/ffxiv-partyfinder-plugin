@@ -116,39 +116,39 @@ public class MainWindow : Window, IDisposable
                 {
                     ImGui.Text("Raids");
 
-                    /*
-                        var m5s = _configuration.M5S;
-                        if (ImGui.Checkbox("AAC Cruiserweight M1 (Savage)", ref m5s))
-                        {
-                            _configuration.M5S = m5s;
-                            _configuration.Save();
-                            _configuration.LoadEncounterIds();
-                        }
+                    
+                    var m9s = _configuration.M9S;
+                    if (ImGui.Checkbox("AAC Heavyweight M1 (Savage)", ref m9s))
+                    {
+                        _configuration.M9S = m9s;
+                        _configuration.Save();
+                        _configuration.LoadEncounterIds();
+                    }
 
-                        var m6s = _configuration.M6S;
+                    var m10s = _configuration.M10S;
 
-                        if (ImGui.Checkbox("AAC Cruiserweight M2 (Savage)", ref m6s))
-                        {
-                            _configuration.M6S = m6s;
-                            _configuration.Save();
-                            _configuration.LoadEncounterIds();
-                        }
+                    if (ImGui.Checkbox("AAC Heavyweight M2 (Savage)", ref m10s))
+                    {
+                        _configuration.M10S = m10s;
+                        _configuration.Save();
+                        _configuration.LoadEncounterIds();
+                    }
 
-                        var m7s = _configuration.M7S;
-                        if (ImGui.Checkbox("AAC Cruiserweight M3 (Savage)", ref m7s))
-                        {
-                            _configuration.M7S = m7s;
-                            _configuration.Save();
-                            _configuration.LoadEncounterIds();
-                        }
+                    var m11s = _configuration.M11S;
+                    if (ImGui.Checkbox("AAC Heavyweight M3 (Savage)", ref m11s))
+                    {
+                        _configuration.M11S = m11s;
+                        _configuration.Save();
+                        _configuration.LoadEncounterIds();
+                    }
 
-                        var m8s = _configuration.M8S;
-                        if (ImGui.Checkbox("AAC Cruiserweight M4 (Savage)", ref m8s))
-                        {
-                            _configuration.M8S = m8s;
-                            _configuration.Save();
-                            _configuration.LoadEncounterIds();
-                        }*/
+                    var m12s = _configuration.M12S;
+                    if (ImGui.Checkbox("AAC Heavyweight M4 (Savage)", ref m12s))
+                    {
+                        _configuration.M12S = m12s;
+                        _configuration.Save();
+                        _configuration.LoadEncounterIds();
+                    }
 
                     var tsukuyomiUnreal = _configuration.TsukuyomiUnreal;
                     if (ImGui.Checkbox("Tsukuyomi's Pain (Unreal)", ref tsukuyomiUnreal))
