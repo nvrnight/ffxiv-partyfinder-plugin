@@ -10,11 +10,14 @@ using PFSearch.Windows;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
+// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
 
 #pragma warning disable CA1416
 
 namespace PFSearch;
 
+// ReSharper disable once ClassNeverInstantiated.Global
 public sealed class Plugin : IDalamudPlugin
 {
     [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
@@ -27,7 +30,7 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static IPluginLog Log { get; private set; } = null!;
 
     private const string CommandName = "/pf";
-    private readonly Configuration _configuration = null!;
+    private readonly Configuration _configuration;
 
     private readonly WindowSystem _windowSystem = new("PartyFinderPlugin");
     private MainWindow MainWindow { get; init; }
@@ -48,6 +51,7 @@ public sealed class Plugin : IDalamudPlugin
             HelpMessage = "Open Party Finder Plugin"
         });
         
+        // ReSharper disable once UnusedParameter.Local
         PartyFinder.ReceiveListing += (listing, listingEventArgs) =>
         {
             //Occasionally using this for finding duty ids.

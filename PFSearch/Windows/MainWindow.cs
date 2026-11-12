@@ -6,6 +6,7 @@ using Dalamud.Interface.Windowing;
 using System;
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
+// ReSharper disable InconsistentNaming
 
 namespace PFSearch.Windows;
 
@@ -13,7 +14,7 @@ public class MainWindow : Window, IDisposable
 {
     private const string WindowId = "Party Finder Plugin##0a0281e6-3c3b-447d-b14f-f5c95f60463e";
 
-    private readonly Configuration _configuration = null!;
+    private readonly Configuration _configuration;
 
     // We give this window a hidden ID using ##
     // So that the user will see "My Amazing Window" as window title,
@@ -150,22 +151,6 @@ public class MainWindow : Window, IDisposable
                         _configuration.LoadEncounterIds();
                     }
 
-                    var tsukuyomiUnreal = _configuration.TsukuyomiUnreal;
-                    if (ImGui.Checkbox("Tsukuyomi's Pain (Unreal)", ref tsukuyomiUnreal))
-                    {
-                        _configuration.TsukuyomiUnreal = tsukuyomiUnreal;
-                        _configuration.Save();
-                        _configuration.LoadEncounterIds();
-                    }
-
-                    var hellOnRailsExtreme = _configuration.HellOnRailsExtreme;
-                    if (ImGui.Checkbox("Hell on Rails (Extreme)", ref hellOnRailsExtreme))
-                    {
-                        _configuration.HellOnRailsExtreme = hellOnRailsExtreme;
-                        _configuration.Save();
-                        _configuration.LoadEncounterIds();
-                    }
-
                     var ucob = _configuration.Ucob;
                     if (ImGui.Checkbox("The Unending Coil of Bahamut (Ultimate)", ref ucob))
                     {
@@ -210,6 +195,14 @@ public class MainWindow : Window, IDisposable
                     if (ImGui.Checkbox("Futures Rewritten (Ultimate)", ref fru))
                     {
                         _configuration.Fru = fru;
+                        _configuration.Save();
+                        _configuration.LoadEncounterIds();
+                    }
+                    
+                    var dmu = _configuration.Dmu;
+                    if (ImGui.Checkbox("Dancing Mad (Ultimate)", ref dmu))
+                    {
+                        _configuration.Dmu = dmu;
                         _configuration.Save();
                         _configuration.LoadEncounterIds();
                     }

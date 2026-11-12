@@ -3,16 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Threading;
+// ReSharper disable InconsistentNaming
 
 namespace PFSearch;
 
 [Serializable]
 public class Configuration : IPluginConfiguration
 {
-    public int Version { get; set; } = 0;
+    public int Version { get; set; }
 
     [IgnoreDataMember]
-    private Lock _encounterLock = new Lock();
+    private Lock _encounterLock = new();
 
     [IgnoreDataMember]
     public HashSet<string> EncounterIds { get; set; } = [];
@@ -23,21 +24,23 @@ public class Configuration : IPluginConfiguration
     public bool M10S { get; set; } = true;
     public bool M11S { get; set; } = true;
     public bool M12S { get; set; } = true;
-    public bool TsukuyomiUnreal { get; set; } = true;
-    public bool HellOnRailsExtreme { get; set; } = true;
     public bool Ucob { get; set; } = true;
     public bool Uwu { get; set; } = true;
     public bool Tea { get; set; } = true;
     public bool Dsr { get; set; } = true;
     public bool Top { get; set; } = true;
     public bool Fru { get; set; } = true;
+    public bool Dmu { get; set; } = true;
     public bool Cod { get; set; } = true;
+    
     public bool On { get; set; } = true;
 
     // the below exist just to make saving less cumbersome
     public void Save()
     {
+#pragma warning disable CA1416
         Plugin.PluginInterface.SavePluginConfig(this);
+#pragma warning restore CA1416
     }
 
     public void LoadEncounterIds()
@@ -49,8 +52,6 @@ public class Configuration : IPluginConfiguration
             if (M10S) EncounterIds.Add("1071");
             if (M11S) EncounterIds.Add("1073");
             if (M12S) EncounterIds.Add("1075");
-            if (TsukuyomiUnreal) EncounterIds.Add("1067");
-            if (HellOnRailsExtreme) EncounterIds.Add("1077");
             if (Ucob) EncounterIds.Add("280");
             if (Uwu) EncounterIds.Add("539");
             if (Tea) EncounterIds.Add("694");
@@ -58,6 +59,7 @@ public class Configuration : IPluginConfiguration
             if (Top) EncounterIds.Add("908");
             if (Fru) EncounterIds.Add("1006");
             if (Cod) EncounterIds.Add("1010");
+            if (Dmu) EncounterIds.Add("1094");
         }
     }
 }

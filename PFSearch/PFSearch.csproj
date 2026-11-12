@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Dalamud.NET.Sdk/14.0.1">
+<Project Sdk="Dalamud.NET.Sdk/15.0.0">
   <PropertyGroup>
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.2</Version>
     <Description>A Party Finder plugin</Description>
     <PackageProjectUrl>https://github.com/nvrnight/ffxiv-partyfinder-plugin</PackageProjectUrl>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <IsPackable>true</IsPackable>
     <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Update="DalamudPackager" Version="15.0.0" />
+    <PackageReference Update="DotNet.ReproducibleBuilds" Version="2.0.5" />
+  </ItemGroup>
 </Project>
