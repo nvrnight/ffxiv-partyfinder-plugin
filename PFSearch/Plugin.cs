@@ -74,7 +74,7 @@ public sealed class Plugin : IDalamudPlugin
                         var builder = new SeStringBuilder();
 
                         builder
-                            .Add(new PartyFinderPayload(listing.Id, PartyFinderPayload.PartyFinderLinkType.NotSpecified));
+                            .Add(new PartyFinderPayload((uint)listing.Id, PartyFinderPayload.PartyFinderLinkType.NotSpecified));
 
                         if (!string.IsNullOrEmpty(name))
                         {
